@@ -16,7 +16,7 @@ class Post(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     category = models.ForeignKey(PostCategory, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(editable=False)
     owner = models.ForeignKey(Account, on_delete=models.DO_NOTHING)
 
     def __str__(self):
