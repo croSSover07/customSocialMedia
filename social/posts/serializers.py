@@ -13,6 +13,9 @@ class PostSerializer(ModelSerializer):
 
 
 class CommentSerializer(ModelSerializer):
+    created_at = serializers.DateTimeField(required=False)
+    post_id = serializers.PrimaryKeyRelatedField(required=False, read_only=True)
+
     class Meta:
         model = Comment
         fields = '__all__'

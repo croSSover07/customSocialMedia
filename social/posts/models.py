@@ -26,9 +26,10 @@ class Post(models.Model):
 class Comment(models.Model):
     id = models.AutoField(primary_key=True)
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)
-    post_id = models.ForeignKey(Post, null=True, on_delete=models.CASCADE)
+    post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment_id = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
     text = models.CharField(max_length=255)
+    created_at = models.DateTimeField(editable=False)
 
     def __str__(self):
         return f'id:{self.id} - body: {self.text}'
