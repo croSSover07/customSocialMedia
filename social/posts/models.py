@@ -5,7 +5,6 @@ from accounts.models import Account
 # Create your models here.
 
 class PostCategory(models.Model):
-    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=20)
 
     def __str__(self):
@@ -13,7 +12,6 @@ class PostCategory(models.Model):
 
 
 class Post(models.Model):
-    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     category = models.ForeignKey(PostCategory, on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(editable=False)
@@ -24,7 +22,6 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    id = models.AutoField(primary_key=True)
     owner = models.ForeignKey(Account, on_delete=models.CASCADE)
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment_id = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
