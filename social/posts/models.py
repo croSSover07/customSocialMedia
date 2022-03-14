@@ -5,7 +5,7 @@ from accounts.models import Account
 # Create your models here.
 
 class PostCategory(models.Model):
-    title = models.CharField(max_length=20)
+    title = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
         return f'title: {self.title} '
