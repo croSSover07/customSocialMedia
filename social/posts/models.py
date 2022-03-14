@@ -13,7 +13,7 @@ class PostCategory(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
-    category = models.ForeignKey(PostCategory, on_delete=models.DO_NOTHING)
+    category = models.ManyToManyField(PostCategory)
     created_at = models.DateTimeField(editable=False)
     owner = models.ForeignKey(Account, on_delete=models.DO_NOTHING)
 
