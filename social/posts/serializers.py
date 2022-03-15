@@ -4,7 +4,22 @@ from rest_framework.serializers import ModelSerializer
 from .models import PostCategory, Post, Comment
 
 
-class PostSerializer(ModelSerializer):
+class CategorySerializer(ModelSerializer):
+    class Meta:
+        model = PostCategory
+        fields = '__all__'
+
+
+class PostReadSerializer(ModelSerializer):
+    created_at = serializers.DateTimeField(required=False)
+    category = CategorySerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Post
+        fields = '__all__'
+
+
+class PostWriteSerializer(ModelSerializer):
     created_at = serializers.DateTimeField(required=False)
 
     class Meta:
@@ -18,10 +33,4 @@ class CommentSerializer(ModelSerializer):
 
     class Meta:
         model = Comment
-        fields = '__all__'
-
-
-class CategorySerializer(ModelSerializer):
-    class Meta:
-        model = PostCategory
         fields = '__all__'

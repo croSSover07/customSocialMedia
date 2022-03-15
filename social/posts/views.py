@@ -3,7 +3,7 @@ import datetime
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import ModelViewSet
 from .models import Post, PostCategory, Comment
-from .serializers import PostSerializer, CategorySerializer, CommentSerializer
+from .serializers import PostWriteSerializer, CategorySerializer, CommentSerializer, PostReadSerializer
 
 
 # Create your views here.
@@ -11,12 +11,17 @@ from .serializers import PostSerializer, CategorySerializer, CommentSerializer
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
-    serializer_class = PostSerializer
 
     def perform_create(self, serializer):
         serializer.save(
             created_at=datetime.datetime.now(),
         )
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return PostReadSerializer
+        else:
+            return PostWriteSerializer
 
 
 class CategoryViewSet(ModelViewSet):
