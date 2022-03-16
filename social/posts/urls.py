@@ -4,11 +4,11 @@ from rest_framework.routers import SimpleRouter
 from .views import PostViewSet, CategoryViewSet, CommentViewSet
 
 router = SimpleRouter()
-router.register('api/post', PostViewSet)
-router.register('api/category', CategoryViewSet)
+router.register('post', PostViewSet)
+router.register('category', CategoryViewSet)
 
 urlpatterns = [
-    path('api/post/<int:post_id>/comments', CommentViewSet.as_view({'post': 'create', 'get': 'list'})),
+    path('post/<int:post_id>/comments', CommentViewSet.as_view({'post': 'create', 'get': 'list'})),
 ]
 
 urlpatterns += router.urls

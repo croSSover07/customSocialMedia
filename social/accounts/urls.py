@@ -4,7 +4,7 @@ from rest_framework.routers import SimpleRouter
 from .views import AccountViewSet
 
 router = SimpleRouter()
-router.register('api/account', AccountViewSet)
+router.register('account', AccountViewSet)
 
 urlpatterns = [
 
