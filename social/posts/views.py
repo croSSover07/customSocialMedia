@@ -1,6 +1,7 @@
 import datetime
 
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from .models import Post, PostCategory, Comment
 from .serializers import PostWriteSerializer, CategorySerializer, CommentSerializer, PostReadSerializer
@@ -11,6 +12,7 @@ from .serializers import PostWriteSerializer, CategorySerializer, CommentSeriali
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(
@@ -27,6 +29,7 @@ class PostViewSet(ModelViewSet):
 class CategoryViewSet(ModelViewSet):
     queryset = PostCategory.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticated]
 
 
 class CommentViewSet(ModelViewSet):
@@ -34,6 +37,7 @@ class CommentViewSet(ModelViewSet):
     serializer_class = CommentSerializer
     filter_backends = [DjangoFilterBackend]
     filter_fields = ['comment_id', 'id']
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         post_id = self.kwargs.get('post_id')
