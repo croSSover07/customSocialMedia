@@ -4,7 +4,8 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 from .models import Post, PostCategory, Comment
-from .serializers import PostWriteSerializer, CategorySerializer, CommentSerializer, PostReadSerializer
+from .serializers import PostWriteSerializer, CategorySerializer, CommentReadSerializer, CommentWriteSerializer, \
+    PostReadSerializer
 
 
 # Create your views here.
@@ -35,7 +36,6 @@ class CategoryViewSet(ModelViewSet):
 
 class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
     filter_backends = [DjangoFilterBackend]
     filter_fields = ['comment_id', 'id']
     permission_classes = [IsAuthenticated]
@@ -48,6 +48,12 @@ class CommentViewSet(ModelViewSet):
             created_at=datetime.datetime.now(),
             owner=self.request.user
         )
+
+    def get_serializer_class(self):
+        if self.action == 'retrieve':
+            return CommentReadSerializer
+        else:
+            return CommentWriteSerializer
 
     def get_queryset(self):
         return super().get_queryset().filter(post_id=self.kwargs.get('post_id'))
