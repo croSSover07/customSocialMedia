@@ -17,6 +17,7 @@ class PostViewSet(ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(
             created_at=datetime.datetime.now(),
+            owner=self.request.user
         )
 
     def get_serializer_class(self):
@@ -45,6 +46,7 @@ class CommentViewSet(ModelViewSet):
         serializer.save(
             post_id=post,
             created_at=datetime.datetime.now(),
+            owner=self.request.user
         )
 
     def get_queryset(self):

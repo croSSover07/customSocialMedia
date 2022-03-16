@@ -15,14 +15,14 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     category = models.ManyToManyField(PostCategory)
     created_at = models.DateTimeField(editable=False)
-    owner = models.ForeignKey(Account, on_delete=models.DO_NOTHING)
+    owner = models.ForeignKey(Account, on_delete=models.DO_NOTHING, editable=False)
 
     def __str__(self):
         return f'id:{self.id} - title: {self.title}'
 
 
 class Comment(models.Model):
-    owner = models.ForeignKey(Account, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Account, on_delete=models.CASCADE, editable=False)
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment_id = models.ForeignKey('self', null=True, on_delete=models.CASCADE)
     text = models.CharField(max_length=255)
