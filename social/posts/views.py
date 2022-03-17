@@ -51,6 +51,15 @@ class CommentViewSet(ModelViewSet):
             owner=self.request.user
         )
 
+    def create(self, request, *args, **kwargs):
+        comment_id = request.data.get('comment_id')
+        post_id = self.kwargs.get('post_id')
+        check_comment = Comment.objects.filter(id=comment_id, post_id=post_id).first()
+        if check_comment is None and comment_id is not None:
+            return Response(f'Error, comment_id={comment_id} doesnt belong to post_id={post_id} ', status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return super().create(request=request, args=args, kwargs=kwargs)
+
     def get_serializer_class(self):
         if self.action == 'retrieve':
             return CommentReadSerializer
