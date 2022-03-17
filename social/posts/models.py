@@ -30,3 +30,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'id:{self.id} - body: {self.text}'
+
+
+class Like(models.Model):
+    owner = models.ForeignKey(Account, on_delete=models.CASCADE, editable=False)
+    post_id = models.ForeignKey(Post, null=True, on_delete=models.CASCADE, default=None)
+    comment_id = models.ForeignKey(Comment, null=True, on_delete=models.CASCADE, default=None)
