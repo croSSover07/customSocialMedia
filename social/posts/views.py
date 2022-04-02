@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from .models import Post, PostCategory, Comment, Like
+from .permissions import IsOwnerOrReadOnly
 from .serializers import PostWriteSerializer, CategorySerializer, CommentReadSerializer, CommentWriteSerializer, \
     PostReadSerializer, LikeReadSerializer, LikeWriteSerializer
 
@@ -15,7 +16,7 @@ from .serializers import PostWriteSerializer, CategorySerializer, CommentReadSer
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(
@@ -33,14 +34,14 @@ class PostViewSet(ModelViewSet):
 class CategoryViewSet(ModelViewSet):
     queryset = PostCategory.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
 
 class CommentViewSet(ModelViewSet):
     queryset = Comment.objects.all()
     filter_backends = [DjangoFilterBackend]
     filter_fields = ['comment_id', 'id']
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         post_id = self.kwargs.get('post_id')
@@ -72,7 +73,7 @@ class CommentViewSet(ModelViewSet):
 
 class LikeViewSet(ModelViewSet):
     queryset = Like.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         post_id = self.kwargs.get('post_id')
