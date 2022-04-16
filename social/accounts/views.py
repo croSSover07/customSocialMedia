@@ -7,6 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 
 # Create your views here.
 from .serializers import AccountSerializer
+from .tasks import send_information_email
 
 
 class AccountViewSet(ModelViewSet):
@@ -20,3 +21,9 @@ class AccountViewSet(ModelViewSet):
         else:
             permission_classes = [IsAuthenticated]
         return [permission() for permission in permission_classes]
+
+    def perform_create(self, serializer):
+        super().perform_create(serializer)
+        send_information_email.delay(self.kwargs.get('email'))
+
+
