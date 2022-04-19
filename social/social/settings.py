@@ -36,6 +36,7 @@ REST_FRAMEWORK = {
 }
 
 INSTALLED_APPS = [
+    'django_crontab',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +46,11 @@ INSTALLED_APPS = [
     'django_filters',
     'accounts',
     'posts'
+]
+
+CRONJOBS = [
+    ('*/1 * * * *', 'social.cron.my_cron_job'),
+    ('*/1 * * * *', 'django.core.management.call_command', ['posts_count'])
 ]
 
 AUTH_USER_MODEL = 'accounts.Account'
