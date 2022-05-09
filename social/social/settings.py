@@ -19,7 +19,7 @@ SECRET_KEY = 'django-insecure-9u0rh)5dqd@lncm)o43e6pq40ttug806b-+f0!c@+we2tryzkh
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['4e-za-dich.com', 'localhost']
 
 # Application definition
 REST_FRAMEWORK = {
