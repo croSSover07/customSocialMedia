@@ -52,3 +52,12 @@ class MySubscriptionViewSet(ModelViewSet):
         return super().get_queryset().filter(owner=self.request.user)
 
 
+class MySubscribersViewSet(ModelViewSet):
+    queryset = Subscription.objects.all()
+    permission_classes = [IsAuthenticated, IsOwnerOrAuthor]
+    serializer_class = SubscriptionReadSerializer
+
+    def get_queryset(self):
+        return super().get_queryset().filter(author=self.request.user)
+
+
