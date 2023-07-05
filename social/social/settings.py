@@ -19,7 +19,7 @@ SECRET_KEY = 'django-insecure-9u0rh)5dqd@lncm)o43e6pq40ttug806b-+f0!c@+we2tryzkh
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['4e-za-dich.com', 'localhost']
+ALLOWED_HOSTS = ['4e-za-dich.com', 'localhost', '127.0.0.1']
 
 # Application definition
 REST_FRAMEWORK = {
@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'accounts',
-    'posts'
+    'posts',
+    'subscription'
 ]
 
 CRONJOBS = [

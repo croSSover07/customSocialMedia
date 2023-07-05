@@ -4,10 +4,10 @@ from rest_framework.routers import SimpleRouter
 from .views import AccountViewSet
 
 router = SimpleRouter()
-router.register('account', AccountViewSet)
 
 urlpatterns = [
-
+    path('account/', AccountViewSet.as_view({'post': 'create', 'get': 'list'})),
+    path('account/<int:id>', AccountViewSet.as_view({'DELETE': 'destroy'})),
 ]
 
 urlpatterns += router.urls
